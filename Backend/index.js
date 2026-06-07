@@ -27,17 +27,23 @@ app.use("/submission", submitRouter);
 app.use("/video",videoRouter);
 
 
-const initializeConnection = async () =>{
-    try{
+const initializeConnection = async () => {
+    try {
         await Promise.all([main(), redisClient.connect()]);
         console.log("Connected to Redis and db connected");
-         app.listen(process.env.PORT, ()=>{
-        console.log(`Server is running on port ${process.env.PORT}`);
-    });
+        
+        if (process.env.NODE_ENV !== 'production') {
+            const PORT = process.env.PORT || 5000;
+            app.listen(PORT, () => {
+                console.log(`Server is running on port ${PORT}`);
+            });
+        }
     }
-    catch(err){
-        console.log("Error connecting to database or Redis");
+    catch(err) {
+        console.log("Error connecting to database or Redis", err.message);
     }
 }
 
 initializeConnection();
+
+module.exports = app;
