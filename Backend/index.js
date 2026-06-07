@@ -20,6 +20,13 @@ app.use(cors({
 app.use(express.json());
 app.use(cookiesparser());
 
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: "Catcode Backend Server Is Running Successfully!",
+        status: "Active"
+    });
+});
+
 app.use('/user', authRouter);
 app.use('/problem', problemRouter);
 app.use("/submission", submitRouter);
