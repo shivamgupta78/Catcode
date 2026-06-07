@@ -11,7 +11,7 @@ const videoRouter = require('./src/routes/videoCreator.js')
 const cors = require('cors');
 
 app.use(cors({
-    origin:'http://localhost:5173',
+    origin:'https://catcode-app.vercel.app',
     credentials:true
 }));
 app.use(express.json());
