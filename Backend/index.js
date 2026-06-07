@@ -27,10 +27,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/user', authRouter);
-app.use('/problem', problemRouter);
-app.use("/submission", submitRouter);
-app.use("/video", videoRouter);
 
 const initializeConnection = async () => {
     try {
@@ -48,6 +44,11 @@ app.use(async (req, res, next) => {
     await initializeConnection();
     next();
 });
+
+app.use('/user', authRouter);
+app.use('/problem', problemRouter);
+app.use("/submission", submitRouter);
+app.use("/video", videoRouter);
 
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 5000;

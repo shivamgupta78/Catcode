@@ -8,7 +8,7 @@ const register = async (req,res)=>{
     try{
         const {firstName,email,password} = req.body;
         //validate the data
-         validator(req.body);
+        await validator(req.body);
         req.body.password = await bcrypt.hash(password,10);
         req.body.role = "user";
 
@@ -63,7 +63,7 @@ const login = async (req,res)=>{
             message:"login successfully"
         })
     } catch(err){
-        res.status(401).send("Error logging in", err.message);
+         res.status(400).json({message:"Error logging user", err: err.message});
     }
 }
 
@@ -84,10 +84,10 @@ const logout = async (req,res) => {
         await redisClient.expireAt(`token:${token}`,payload.exp);
         res.cookie("token",null,new Date(Date.now()));
         // res.clearCookie("token");
-        res.status(200).send("Logged out successfully");
+        res.status(200).json({message:"Logged out successfully"});
         
     } catch (err){
-        res.status(500).send("Error logging out", err.message);
+        res.status(500).json({message:"Error logging out", err: err.message});
 
     }
 }
