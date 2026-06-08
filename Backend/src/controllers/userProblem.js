@@ -57,10 +57,10 @@ const mockSubmitBatch = async (submissions) => {
     }));
 };
 
-// Simulates checking the status of tokens on Judge0
+
+
 const mockSubmitToken = async (tokens) => {
     console.log("Mocking Judge0: Checking token statuses...");
-    // Simulate that all test cases passed successfully (status id 3 = Accepted)
     return tokens.map(() => ({
         status: { id: 3, description: "Accepted" }
     }));
