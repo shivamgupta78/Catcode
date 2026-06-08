@@ -10,15 +10,12 @@ const submitCode = async (req,res)=>{
         const userId = req.result._id;
         const problemId = req.params.id;
         const {code , language} = req.body;
-        //validating 
         if(!userId || !code || !language || !problemId)
-            return res.status(400).send("some field missing");
+            return res.status(400).json({message:"some field missing"});
 
-        //fetching the test cases of problem
         const problems = await problem.findById(problemId)
    
-    //sending code to judge0
-    const testResult = (problems.visibleTestCases || []).map((testcase)=>{
+        const testResult = (problems.visibleTestCases || []).map((testcase)=>{
             const randomTime = (Math.random() * 0.14 + 0.01).toFixed(3);
             const randomMemory = Math.floor(Math.random()*3075) + 1024;
             const isSuccess = Math.random() < 0.7
@@ -72,12 +69,12 @@ const submitCode = async (req,res)=>{
                 maxMemory,
                 
             }
-            res.status(201).send(response)
+            res.status(201).json(response)
 
 
     }catch(err){
         console.error("error in submit code backend", err)
-        res.status(500).send("internal server error"+ err.message);
+        res.status(500).json({message:"internal server error", err: err.message});
     }
     
 
@@ -89,14 +86,13 @@ const runCode = async (req,res)=>{
         const userId = req.result._id;
         const problemId = req.params.id;
         const {code , language} = req.body;
-        //validating 
         if(!userId || !code || !language || !problemId)
-            return res.status(400).send("some field missing");
+            return res.status(400).json({message:"some field missing"});
 
         //fetching the test cases of problem
         const problems = await problem.findById(problemId)
         if(!problems){
-            return res.status(400).send("problem not found");
+            return res.status(400).json({message:"problem not found"});
         }
         //creating mock function
         const testResult = (problems.visibleTestCases || []).map((testcase)=>{
@@ -131,13 +127,13 @@ const runCode = async (req,res)=>{
             maxMemory,
             testCases:testResult
         }
-         res.status(201).send(finalResponse);
+         res.status(201).json(finalResponse);
 
 
 
     }catch(err){
         console.log("error in runCode:", err);
-        res.status(500).send("internal server error"+ err);
+        res.status(500).json({message:"internal server error", err: err.message});
     }
 
 

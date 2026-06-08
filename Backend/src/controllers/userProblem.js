@@ -1,5 +1,5 @@
 const Problem = require('../models/problem.js');
-const {getLanguagebyId,submitBatch,submitToken} = require('../utils/problemutils');
+const {getLanguagebyId} = require('../utils/problemutils');
 const User = require('../models/user.js');
 const SolutionVideo = require("../models/solutionVideo.js");
 const Submission = require("../models/submission.js")
@@ -67,9 +67,7 @@ const mockSubmitToken = async (tokens) => {
 };
 
 const createProblem = async (req, res) => {
-    console.log(req.body)
     try {
-        // 1. Extract info from req.body
         const {
             title,
             description,
@@ -82,10 +80,8 @@ const createProblem = async (req, res) => {
         } = req.body;
 
         
-        // 2. Extract problemCreator from req.result._id as requested
         const problemCreator = req.result?._id;
 
-        // Validation: Ensure problemCreator exists
         if (!problemCreator) {
             return res.status(401).json({
                 success: false,
@@ -93,7 +89,6 @@ const createProblem = async (req, res) => {
             });
         }
 
-        // 3. Create a new problem instance using the Problem model
         const newProblem = new Problem({
             title,
             description,
@@ -103,13 +98,11 @@ const createProblem = async (req, res) => {
             hiddenTestCases,
             startCode,
             referenceSolution,
-            problemCreator // Using the ID from req.result._id
+            problemCreator 
         });
 
-        // 4. Save to the database
         const savedProblem = await newProblem.save();
 
-        // 5. Return success status 201 with JSON message and details
         return res.status(201).json({
             success: true,
             message: "Problem created successfully",
@@ -132,19 +125,19 @@ const createProblem = async (req, res) => {
     const {title, description, difficulty,tags,visibleTestCases,hiddenTestCases,startCode,referenceSolution,problemCreator} = req.body;
     try{
         if(!problemId){
-           return  res.status(400),send("invalid id");
+           return  res.status(400).json({message:"invalid id"});
         }
         const Dsaproblem = await Problem.findById(problemId)
         if(!Dsaproblem){
-            return res.status(404).send("ID is not present in server")
+            return res.status(404).json({message:"ID is not present in server"})
         }
 
         const newProblem = await Problem.findByIdAndUpdate(problemId, {...req.body} , {runValidators:true, new:true},);
 
-        res.status(200).send(newProblem);
+        res.status(200).json(newProblem);
 
     }catch(err){
-        res.status(500).send("Error"+ err.message);
+        res.status(500).json({message :"Error", err: err.message});
     }
  }
 
@@ -152,16 +145,16 @@ const deleteProblem = async (req,res)=>{
     const { id } = req.params;
     try{
         if(!id){
-            return res.status(400).send("id is missing");
+            return res.status(400).json({message:"id is missing"});
         }
         const deletedProblem = await Problem.findByIdAndDelete(id);
         if(!deletedProblem){
-            return res.status(404).send("problem is missing")
+            return res.status(404).json({message:"problem is missing"})
         }
-            res.status(200).send("Successfully Deleted");
+            res.status(200).json({message:"Successfully Deleted"});
         
     }catch(err){
-        res.status(500).send("Error:"+ err);
+        res.status(500).json({message:"Error:", err: err.message});
     }
 }
 
@@ -169,11 +162,11 @@ const getProblemById = async (req,res)=>{
     const { id } = req.params;
     try{
         if(!id){
-            return res.status(400).send("id is missing");
+            return res.status(400).json({message:"id is missing"});
         }
         const getProblem = await Problem.findById(id).select('_id title description difficulty tags visibleTestCases startCode hiddenTestCases referenceSolution');
         if(!getProblem){
-            return res.status(404).send("problem is missing")
+            return res.status(404).json({message:"problem is missing"})
         }
         const videos = await SolutionVideo.find({problemId:id});
         if(videos){
@@ -183,10 +176,10 @@ const getProblemById = async (req,res)=>{
             getProblem.duration=videos.duration
             return res.status(200).send(getProblem);
         }
-            res.status(200).send(getProblem);
+            res.status(200).json(getProblem);
         
     }catch(err){
-        res.status(500).send("Error:"+ err.message);
+        res.status(500).json({message:"Error:", err: err.message});
     }   
 }
 
@@ -194,12 +187,12 @@ const problemFetchAll = async (req,res)=>{
     try{   
     const getProblem = await Problem.find({}).select('_id title difficulty tags');
         if(getProblem.length==0){
-            return res.status(404).send("problem is missing")
+            return res.status(404).json({message:"problem is missing"})
         }
-            res.status(200).send(getProblem);
+            res.status(200).json(getProblem);
         
     }catch(err){
-        res.status(500).send("Error:"+ err);
+        res.status(500).json({message:"Error:", err: err.message});
     }   
 }
 
@@ -212,11 +205,10 @@ const solvedProblem = async (req,res)=>{
             })
             .select("problemId status runtime memory language createdAt testCasesPassed testCasesTotal code")
             .sort({createdAt:-1});
-            console.log(userSubmission);
-            res.status(200).send(userSubmission || []);
+            res.status(200).json(userSubmission || []);
 
         } catch(err){
-            res.status(500).send("server error"+ err.message);
+            res.status(500).json({message:"server error", err:err.message});
         }
 }
 
