@@ -11,7 +11,7 @@ const videoRouter = require('./src/routes/videoCreator.js');
 const cors = require('cors');
 
 app.use(cors({
-    origin: true, 
+    origin: "https://catcode-app.vercel.app", 
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
@@ -20,13 +20,10 @@ app.use(cors({
 app.use(express.json());
 app.use(cookiesparser());
 
-app.get('/', (req, res) => {
-    res.status(200).json({
-        message: "Catcode Backend Server Is Running Successfully!",
-        status: "Active"
-    });
+app.use(async (req, res, next) => {
+    await initializeConnection();
+    next();
 });
-
 
 const initializeConnection = async () => {
     try {
@@ -40,11 +37,14 @@ const initializeConnection = async () => {
     }
 }
 
-app.use(async (req, res, next) => {
-    await initializeConnection();
-    next();
-});
 
+
+app.get('/', (req, res) => {
+    res.status(200).json({
+        message: "Catcode Backend Server Is Running Successfully!",
+        status: "Active"
+    });
+});
 app.use('/user', authRouter);
 app.use('/problem', problemRouter);
 app.use("/submission", submitRouter);
