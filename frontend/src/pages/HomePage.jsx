@@ -24,16 +24,7 @@ function Homepage(){
                 console.error("Error fetching problems",error);
             }
         };
-        // const fetchSolvedProblems = async ()=>{
-        //     try{
-        //         const {data} = await axiosClient.get('/problem/problemSolvedByUser');
-        //         setsolvedProblems(data);
-        //     }catch(error){
-        //         console.log('Error fetching solved problems');
-        //     }
-        // };
-         fetchProblems();
-        // if (user) fetchSolvedProblems();
+        fetchProblems();
     }, [user]);
     const handleLogout = ()=>{
         dispatch(logoutUser());
@@ -42,16 +33,15 @@ function Homepage(){
     const filterdProblems = problems.filter(problem =>{
         const difficultyMatch = filters.difficulty === 'all' || problem.difficulty === filters.difficulty;
         const tagMatch = filters.tags === 'all' || problem.tags === filters.tags;
-        const statusMatch = filters.status === 'all' || solvedProblems.some(sp => sp._id === problem._id);
-        return (difficultyMatch && tagMatch && statusMatch);
+        // const statusMatch = filters.status === 'all' || solvedProblems.some(sp => sp._id === problem._id);
+        return (difficultyMatch && tagMatch);
 
     })
     return (
         <div className="min-h-screen bg-base-200">
-            {/* //creating navigation bar */}
             <nav className="navbar bg-base-100 shadow-lg px-4">
                 <div className="flex-1">
-                    <NavLink to='/' className="btn btn-ghost text-xl">LeetCode</NavLink>
+                    <NavLink to='/' className="btn btn-ghost text-xl">Catcode</NavLink>
                 </div>
                 
                 <div className="flex-none rounded-md gap-4">
@@ -69,9 +59,8 @@ function Homepage(){
                 <div className="flex flex-wrap gap-4 mb-6">
                     <select className="select select-bordered"
                     value={filters.status}
-                    onChange={(e)=>setFilters({...filters,status:e.target.value})}>
+                    >
                         <option value="all">All Problems</option>
-                        <option value="solved">Solved Problems</option>
                     </select>
                     <select className="select select-bordered"
                     value={filters.difficulty}
