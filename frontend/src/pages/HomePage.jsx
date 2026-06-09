@@ -33,7 +33,6 @@ function Homepage(){
     const filterdProblems = problems.filter(problem =>{
         const difficultyMatch = filters.difficulty === 'all' || problem.difficulty === filters.difficulty;
         const tagMatch = filters.tags === 'all' || problem.tags === filters.tags;
-        // const statusMatch = filters.status === 'all' || solvedProblems.some(sp => sp._id === problem._id);
         return (difficultyMatch && tagMatch);
 
     })
@@ -75,8 +74,8 @@ function Homepage(){
                     onChange={(e)=>setFilters({...filters,tags:e.target.value})}>
                         <option value="all">All Tags</option>
                         <option value="array">Array</option>
-                        <option value="LinkedList">Linked List</option>
-                        <option value="dp">DP</option>
+                        <option value="linked list">Linked List</option>
+                        <option value="dynamic programming">DP</option>
                         <option value="string">Strings</option>
                         <option value="greedy">Greedy</option>
                         <option value="backtracking">Backtracking</option>
