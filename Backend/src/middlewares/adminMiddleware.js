@@ -4,9 +4,10 @@ const User = require('../models/user.js');
 
 const adminMiddleware = async (req,res,next) => {
     try {
-        const {token}  = req.cookies;
+       const authHeader = req.headers.authorization;
+        const token = authHeader && authHeader.split('')[1];
         if(!token){
-            throw new Error("No token provided");
+            return res.status(401).json({message:"Invalid token", err:"No token provided"})
         }
         const payload = await jwt.verify(token, process.env.JWT_SECRET,)
         const {_id} = payload;
