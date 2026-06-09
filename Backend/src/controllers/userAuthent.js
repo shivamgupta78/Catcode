@@ -7,7 +7,6 @@ const redisClient = require('../config/redis.js');
 const register = async (req,res)=>{
     try{
         const {firstName,email,password} = req.body;
-        //validate the data
         await validator(req.body);
         req.body.password = await bcrypt.hash(password,10);
         req.body.role = "user";
@@ -68,9 +67,9 @@ const login = async (req,res)=>{
 }
 
 const logout = async (req,res) => {
-      console.log(req.cookies);
     try{
-        const { token } = req.cookies;
+        const authHeader = req.headers.authorization;
+        const token = authHeader && authHeader.split('')[1];
         if(!token){
             throw new Error("No token found");
         }
@@ -103,13 +102,12 @@ const adminRegister = async (req,res) => {
         //validate the data
         await validator(req.body);
         req.body.password = await bcrypt.hash(password,10);
+        req.body.role = "admin";
 
         const user = await User.create(req.body);
-
         const token = jwt.sign({_id:user._id,email:user.email,role:user.role}, process.env.JWT_SECRET, {expiresIn:3600});
-        res.cookie('token',token,{maxAge:3600000});
 
-        res.status(201).json({message:"User created successfully", user});
+        res.status(201).json({message:"User created successfully", user, token});
 
     } catch(err){
 
