@@ -8,7 +8,7 @@ const tokenvalidation = async (req,res,next) => {
         if(!token){
             throw new Error("No token provided");
         }
-        const payload = await jwt.verify(token, process.env.JWT_SECRET,)
+        const payload = jwt.verify(token, process.env.JWT_SECRET,)
         const {_id} = payload;
         if(!_id){   
             throw new Error("Invalid token");
