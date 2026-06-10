@@ -29,6 +29,15 @@ function Admin(){
     color:'btn-error',
     bgcolor:'bg-error/10',
     route:'/admin/delete'
+},
+,{
+    id:'video',
+    title:'Video Upload',
+    description:"Upload and Delete videos",
+    icon:Video,
+    color:'btn-success',
+    bgcolor:'bg-success/10',
+    route:'/admin/video'
 }]
     return (
         <div className="min-h-screen bg-base-200">

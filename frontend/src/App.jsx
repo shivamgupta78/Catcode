@@ -11,6 +11,8 @@ import Problempage from './pages/problempage.jsx';
 import AdminDelete from '../components/DelProblem.jsx'
 import AdminUpdate from '../components/AdminUpdate.jsx';
 import UpdateProblem from '../components/UpdateProblem.jsx';
+import AdminVideo from '../components/adminVideo.jsx';
+import VideoUpload from '../components/AdminUpload.jsx';
 
 function App() {
 
@@ -37,6 +39,8 @@ useEffect(()=>{
       <Route path="/admin/update" element={isAuthenticated && user.role==='admin'?<AdminUpdate />:<Navigate to="/" />} />
       <Route path="/admin/probupdate/:problemId" element={isAuthenticated && user.role==='admin'?<UpdateProblem />:<Navigate to="/" />} />
       <Route path="/admin/delete" element={isAuthenticated && user.role==='admin'?<AdminDelete />:<Navigate to="/" />} />
+      <Route path="/admin/video" element={isAuthenticated && user.role==='admin'?<AdminVideo />:<Navigate to="/" />} />
+      <Route path="/admin/upload/:problemId" element={isAuthenticated && user.role==='admin'?<VideoUpload />:<Navigate to="/" />} />
       <Route path="/problem/:id" element={<Problempage />} /> 
 
      </Routes>
