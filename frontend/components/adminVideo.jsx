@@ -1,21 +1,22 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
-import axiosClient from '../src/utils/axiosClient'
+import axiosClient from '../src/utils/axiosClient';
 
 const AdminVideo = () => {
-    const [problems,setproblems]  = useState([]);
-    const [loading,setloading] = useState(true);
-    const [error,setError] = useState(null);
+    const [problems, setproblems] = useState([]);
+    const [loading, setloading] = useState(true);
+    const [error, setError] = useState(null);
 
-    useEffect(()=>{
-        fetchProblems()
-    },[]);
-    const fetchProblems = async () =>{
-        try{
+    useEffect(() => {
+        fetchProblems();
+    }, []);
+
+    const fetchProblems = async () => {
+        try {
             setloading(true);
             const { data } = await axiosClient.get('/problem/getAllProblem');
             setproblems(data);
-        } catch(err){
+        } catch (err) {
             setError('Failed to fetch problems');
         } finally {
             setloading(false);
@@ -23,76 +24,74 @@ const AdminVideo = () => {
     };
 
     const handleDelete = async (id) => {
-        if(!window.confirm("Are you sure you want to delete this problem?")) return;
-        try{
-            await axiosClient.delete(`./problem/delete/${id}`);
+        if (!window.confirm("Are you sure you want to delete this problem?")) return;
+        try {
+            // FIXED: Path formatted from './problem/delete' to clean production '/problem/delete'
+            await axiosClient.delete(`/problem/delete/${id}`);
             setproblems(problems.filter(problem => problem._id !== id));
-        } catch(err){
+        } catch (err) {
             setError('failed to delete problem');
             console.error(err);
         }
     };
-    if(loading){
+
+    if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
-                <span className="loading loading-spinner loading-lg">
-                </span>
+                <span className="loading loading-spinner loading-lg"></span>
             </div>
         );
-
     }
-    if(error){
-        return (
-            <div className="alert alert-error shadown-lg my-4">
-                <div>
-                    <svg xmlns="http://w3.org" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <span>{error}</span>
-                </div>
-            </div>
-        );
+
+    if (error) {
+        return <div className="text-red-500 font-medium p-4 text-center">⚠️ Error: {error}</div>;
     }
 
     return (
-        <div className="container mx-auto p-4">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold">Upload Videos</h1>
-            </div>
-            <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+        <div className="p-6 bg-zinc-950 min-h-screen text-white">
+            <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">🎬 Media Infrastructure Management Control</h1>
+            <div className="overflow-x-auto border border-zinc-800 rounded-xl bg-zinc-900 shadow-xl">
+                <table className="table w-full text-zinc-300">
                     <thead>
-                        <tr>
-                            <th className="w-1\12">#</th>
-                            <th className="w-4\12">Title</th>
-                            <th className="w-2\12">Difficulty</th>
-                            <th className="w-3\12">Tags</th>
-                            <th className="w-2\12">Actions</th>
+                        <tr className="border-b border-zinc-800 text-zinc-400">
+                            <th>#</th>
+                            <th>Problem Identity Header</th>
+                            <th>Complexity Node</th>
+                            <th>Indexed Tags</th>
+                            <th>Pipeline Upload</th>
+                            <th>Purge Check</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {problems.map((problem,index)=>(
-                            <tr key={problem.id}>
-                                <th>{index+1}</th>
-                                <td>{problem.title}</td>
+                        {problems.map((problem, index) => (
+                            <tr key={problem._id || index} className="border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors">
+                                <th>{index + 1}</th>
+                                <td className="font-medium text-white">{problem.title}</td>
                                 <td>
                                     <span className={`badge ${
                                         problem.difficulty === 'easy' ? 'badge-success' : problem.difficulty === 'medium' ? 'badge-warning' : 'badge-error'}`}>
-                                            {problem.difficulty}
+                                        {problem.difficulty}
                                     </span>
                                 </td>
                                 <td>
-                                    <span className="badge badge-outline">{problem.tags}</span>
+                                    <span className="badge badge-outline text-zinc-400">{problem.tags}</span>
                                 </td>
                                 <td>
-                                    <div className="flex space-x-1">
-                                        <NavLink 
-                                        to={`/admin/upload/${problem._id}`} className='btn bg-blue-500 text-white'>Upload</NavLink>
-                                    </div>
+                                    {/* Mapped properly to video infrastructure component context router inside app */}
+                                    <NavLink 
+                                        to={`/admin/upload/${problem._id}`} 
+                                        className='btn btn-sm bg-blue-600 hover:bg-blue-700 border-none text-white font-semibold'
+                                    >
+                                        Upload Video
+                                    </NavLink>
                                 </td>
                                 <td>
-                                    <div className="flex space-x-2">
-                                        <button onClick={() => handleDelete(problem._id)} className="btn btn-sm btn-error">Delete</button>
-                                    </div>
+                                    <button 
+                                        onClick={() => handleDelete(problem._id)} 
+                                        className="btn btn-sm btn-error bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white"
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -100,7 +99,7 @@ const AdminVideo = () => {
                 </table>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default AdminVideo
+export default AdminVideo;
