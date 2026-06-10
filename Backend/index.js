@@ -7,7 +7,6 @@ const authRouter = require('./src/routes/userAuth.js');
 const problemRouter = require('./src/routes/problemSet.js');
 const redisClient = require('./src/config/redis.js');
 const submitRouter = require('./src/routes/submit.js');
-const videoRouter = require('./src/routes/videoCreator.js');
 const cors = require('cors');
 
 app.use(cors({
@@ -48,7 +47,6 @@ app.get('/', (req, res) => {
 app.use('/user', authRouter);
 app.use('/problem', problemRouter);
 app.use("/submission", submitRouter);
-app.use("/video", videoRouter);
 
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 5000;
