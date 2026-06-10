@@ -9,16 +9,20 @@ CatCode is an industry-standard, fully responsive full-stack competitive program
 ## 📸 Core UI Visuals & Dashboard Preview
 
 ### 1. Unified Identity Gateway (Secure Login / Signup Portal)
-![Authentication Interface] (https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/signup.png)
-(https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/login.png)
+![Authentication Interface1](https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/signup.png)
+
+![Authentication Interface2](https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/login.png)
+
 *An intelligent routing checkpoint that strictly forces validation tokens before exposing backend database models or core user dashboard interfaces.*
 
 ### 2. Analytical Workspace & Problem Repository
-![Platform Dashboard] (https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/dashboard.png)
+![Platform Dashboard](https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/dashboard.png)
+
 *An dynamic multi-attribute list rendering indexed algorithms, structured categorized sorting, and real-time complexity metadata tags.*
 
 ### 3. Asynchronous Execution Console & Interactive Code Terminal
-![Monaco Editor Code Workspace] (https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/editor.png)
+![Monaco Editor Code Workspace](https://raw.githubusercontent.com/shivamgupta78/Catcode/refs/heads/main/frontend/public/editor.png)
+
 *A state-of-the-art developer code editor layout designed with multi-language parsing, persistent memory caches, and terminal streaming blocks.*
 
 ---
