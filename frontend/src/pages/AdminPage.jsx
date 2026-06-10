@@ -134,7 +134,6 @@ const AdminPage = () => {
   </button>
 </div>
 
-{/* Test Cases List */}
 {visibleFields.map((field, index) => (
   <div key={field.id} className="border border-gray-300 p-4 mb-3 rounded flex gap-2">
     <input className="border p-1 flex-1" placeholder="Input" {...register(`visibleTestCases.${index}.input`)} />
@@ -150,7 +149,6 @@ const AdminPage = () => {
   </div>
 ))}
        
-       {/* Hidden Test Cases Header aur Button */}
 <div className="flex justify-between items-center mb-4">
   <h3 className="text-md font-md text-white-500">Hidden Test Cases</h3>
   <button 
@@ -162,7 +160,6 @@ const AdminPage = () => {
   </button>
 </div>
 
-{/* Hidden Test Cases List */}
 {hiddenFields.map((field, index) => (
   <div key={field.id} className="flex gap-3 items-center border border-gray-200 p-3 mb-3 rounded-lg shadow-sm">
     <input 
@@ -191,7 +188,6 @@ const AdminPage = () => {
     {errors.hiddenTestCases.message}
   </p>
 )}
-        {/* Start Code */}
         <h3>Start Code (Initial Templates)</h3>
         {startCodeFields.map((field, index) => (
           <div key={field.id} style={{ marginBottom: '10px'}}>
@@ -205,7 +201,6 @@ const AdminPage = () => {
         ))}
         {errors.startCode && <p style={{ color: 'red' }}>{errors.startCode.message}</p>}
 
-        {/* Reference Solution */}
         <h3>Reference Solutions</h3>
         {refSolutionFields.map((field, index) => (
           <div key={field.id} style={{ marginBottom: '10px' }}>

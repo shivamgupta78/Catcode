@@ -73,7 +73,6 @@ const submitCode = async (req,res)=>{
 
 
     }catch(err){
-        console.error("error in submit code backend", err)
         res.status(500).json({message:"internal server error", err: err.message});
     }
     
@@ -89,7 +88,6 @@ const runCode = async (req,res)=>{
         if(!userId || !code || !language || !problemId)
             return res.status(400).json({message:"some field missing"});
 
-        //fetching the test cases of problem
         const problems = await problem.findById(problemId)
         if(!problems){
             return res.status(400).json({message:"problem not found"});
@@ -132,7 +130,6 @@ const runCode = async (req,res)=>{
 
 
     }catch(err){
-        console.log("error in runCode:", err);
         res.status(500).json({message:"internal server error", err: err.message});
     }
 

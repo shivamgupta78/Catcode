@@ -40,7 +40,6 @@ const generateUploadSignature = async (req , res) =>{
         });
 
     } catch(error){
-        console.error(`Error generating upload signature`, error);
         res.status(400).send('Failed to generate upload credentials');
     }
 };
@@ -108,7 +107,6 @@ const saveVideoMetadata = async (req,res) =>{
             }
         });
     } catch(error){
-        console.error("Error saving video metadata",error);
         res.status(500).send("Failed to save video metadata");
     }
 };
@@ -125,7 +123,6 @@ const deleteVideo = async (req, res)=>{
         await cloudinary.uploader.destroy(video.cloudinaryPublicId,{resource_type:'video',invalidate:true});
         res.json({message:"video deleted successfully"});
     } catch(error){
-        console.error("Error deleting video",error);
         res.status(500).json({error:"Failed to delete video"});
     }
 }

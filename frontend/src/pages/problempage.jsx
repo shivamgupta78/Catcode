@@ -207,7 +207,6 @@ const handleFetchSubmissions = async () => {
                                 </div>
                         )}
                         {activeLeftTab === 'editorial' && <div className="text-gray-400 italic">Editorial content is avaliable for only premium members</div>}
-                        {/*Submission tab is here */}
                        {activeLeftTab === 'submission' && (
                             <div className="space-y-4 animate-in fade-in duration-200">
                                 {!hasFetchedSubmissions ? (

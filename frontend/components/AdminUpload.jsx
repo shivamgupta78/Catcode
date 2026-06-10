@@ -32,10 +32,8 @@ const VideoUpload = () =>{
         setUploadProgress(0);
         clearErrors();
         try{
-            //get upload signature from backend
             const signatureResponse = await axios.get(`http://localhost:3000/video/create/${problemId}`);
             const { signature,timestamp,public_id,api_key,upload_url} = signatureResponse.data;
-            //create a formdata for cloudinary upload
             const formdata = new FormData();
             formdata.append('file',file);
             formdata.append('signature',signature);

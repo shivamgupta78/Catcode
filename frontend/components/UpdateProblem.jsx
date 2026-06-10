@@ -150,7 +150,6 @@ const UpdateProblem = () => {
         </div>
       )}
 
-      {/* Added onValidationFail to the handleSubmit to expose hidden errors */}
       <form onSubmit={handleSubmit(onSubmit, onValidationFail)}>
         
         <div>
@@ -209,7 +208,6 @@ const UpdateProblem = () => {
                 <input className="border p-1 flex-1" placeholder="Explaination" {...register(`visibleTestCases.${index}.explaination`)} />
                 <button type="button" className="text-red-500 font-medium" onClick={() => removeVisible(index)}>Remove</button>
             </div>
-            {/* ADDED EXPLICIT NESTED ERROR DISPLAY */}
             <div className="flex gap-2">
                 {errors?.visibleTestCases?.[index]?.input && <p style={{ color: 'red', fontSize: '12px' }}>{errors.visibleTestCases[index].input.message}</p>}
                 {errors?.visibleTestCases?.[index]?.output && <p style={{ color: 'red', fontSize: '12px' }}>{errors.visibleTestCases[index].output.message}</p>}
@@ -236,7 +234,6 @@ const UpdateProblem = () => {
                 <input className="border border-gray-300 rounded px-2 py-1 flex-1" placeholder="Output" {...register(`hiddenTestCases.${index}.output`)} />
                 <button type="button" className="text-red-600 hover:text-red-800 text-sm font-semibold p-1" onClick={() => removeHidden(index)}>Remove</button>
             </div>
-            {/* ADDED EXPLICIT NESTED ERROR DISPLAY */}
             <div className="flex gap-2">
                 {errors?.hiddenTestCases?.[index]?.input && <p style={{ color: 'red', fontSize: '12px' }}>{errors.hiddenTestCases[index].input.message}</p>}
                 {errors?.hiddenTestCases?.[index]?.output && <p style={{ color: 'red', fontSize: '12px' }}>{errors.hiddenTestCases[index].output.message}</p>}

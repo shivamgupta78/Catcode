@@ -22,7 +22,7 @@ const AdminDelete = () => {
     };
 
     const handleDelete = async (id) => {
-        if(!window.confirm("Are you sure you want to delete this problem?"));
+        if(window.confirm("Are you sure you want to delete this problem?"));
         try{
             await axiosClient.delete(`./problem/delete/${id}`);
             setproblems.problems.filter(problem => problem._id !== id);

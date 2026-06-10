@@ -4,67 +4,6 @@ const User = require('../models/user.js');
 const SolutionVideo = require("../models/solutionVideo.js");
 const Submission = require("../models/submission.js")
 
-// const createProblem = async (req, res) =>{
-//     // console.log("request body", req.result._id);
-//     const {title, description, difficulty,tags,visibleTestCases,hiddenTestCases,startCode,referenceSolution,problemCreator} = req.body;
-//     try{
-//         for(const {language, completeCode} of referenceSolution){
-//             //submission format for judge0 api
-//             const languageId = getLanguagebyId(language);
-//             const submissions = visibleTestCases.map((testCase) =>({
-//                 source_code: completeCode,
-//                 language_id: languageId,
-//                 stdin: testCase.input,
-//                 expected_output: testCase.output,
-//             }));        
-
-//             // const submitResult = await submitBatch(submissions);
-//             // console.log(typeof submitResult);
-//             // console.log("submit result", submitResult);
-
-//             // const resultToken = submitResult.map((value) => value.token);
-
-//             // const testResult = await submitToken(resultToken);
-//             // for(const test of testResult){
-//             //     if(test.status.id !== 3){
-//             //         return res.status(400).send("Error Occurrred"); 
-//             //     }
-//             //     if (test.status.id == 4){
-//             //         return res.status(400).send("Reference solution failed for some test cases");
-        
-            
-//         }
-
-//             //save the problem to database
-//             await Problem.create({
-//                 ...req.body,
-//                 problemCreator: req.result._id,
-//             });
-//             return res.status(201).send("Problem created successfully");
-        
-
-//     }catch(err){
-//         res.status(500).send("Internal Server Error"+ err.message);
-//     }
-//  }
-// --- MOCK JUDGE0 FUNCTIONS ---
-// Simulates sending code to Judge0 and getting submission tokens
-
-const mockSubmitBatch = async (submissions) => {
-    console.log("Mocking Judge0: Submitting batch...");
-    return submissions.map((_, index) => ({
-        token: `mock_token_${Math.random().toString(36).substr(2, 9)}_${index}`
-    }));
-};
-
-
-
-const mockSubmitToken = async (tokens) => {
-    console.log("Mocking Judge0: Checking token statuses...");
-    return tokens.map(() => ({
-        status: { id: 3, description: "Accepted" }
-    }));
-};
 
 const createProblem = async (req, res) => {
     try {
@@ -110,7 +49,6 @@ const createProblem = async (req, res) => {
         });
 
     } catch (error) {
-        console.log("validation error details:", error.errors);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error",

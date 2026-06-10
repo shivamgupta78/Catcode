@@ -9,16 +9,16 @@ CatCode is an industry-standard, fully responsive full-stack competitive program
 ## 📸 Core UI Visuals & Dashboard Preview
 
 ### 1. Unified Identity Gateway (Secure Login / Signup Portal)
-![Authentication Interface](https://raw.githubusercontent.com/shivamgupta78/catcode-app/frontend/public/screenshots/signup.png)
-(https://raw.githubusercontent.com/shivamgupta78/catcode-app/frontend/public/screenshots/login.png)
+![Authentication Interface] (https://raw.githubusercontent.com/shivamgupta78/Catcode/frontend/public/signup.png)
+(https://raw.githubusercontent.com/shivamgupta78/Catcode/frontend/public/login.png)
 *An intelligent routing checkpoint that strictly forces validation tokens before exposing backend database models or core user dashboard interfaces.*
 
 ### 2. Analytical Workspace & Problem Repository
-![Platform Dashboard](https://raw.githubusercontent.com/shivamgupta78/catcode-app/frontend/public/screenshots/dashboard.png)
+![Platform Dashboard] (https://raw.githubusercontent.com/shivamgupta78/Catcode/frontend/public/dashboard.png)
 *An dynamic multi-attribute list rendering indexed algorithms, structured categorized sorting, and real-time complexity metadata tags.*
 
 ### 3. Asynchronous Execution Console & Interactive Code Terminal
-![Monaco Editor Code Workspace](https://raw.githubusercontent.com/shivamgupta78/catcode-app/frontend/public/screenshots/editor.png)
+![Monaco Editor Code Workspace] (https://raw.githubusercontent.com/shivamgupta78/Catcode/frontend/public/editor.png)
 *A state-of-the-art developer code editor layout designed with multi-language parsing, persistent memory caches, and terminal streaming blocks.*
 
 ---
@@ -63,7 +63,7 @@ Follow these extensive configurations closely to initialize a fully operational 
 ### 📥 Step 1: Clone Repository and Establish Work Directories
 Download the structured codebase package locally and isolate the decoupled frontend and backend clusters using your terminal terminal:
 ```bash
-git clone [https://github.com/shivamgupta78/catcode-app.git](https://github.com/shivamgupta78/catcode-app.git)
+git clone (https://github.com/shivamgupta78/catcode-app.git)
 cd catcode-app
 ```
 
@@ -84,10 +84,15 @@ npm install
 
 ```bash
 Code snippet
+
 PORT=5000
+
 MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/catcode?retryWrites=true&w=majority
+
 JWT_SECRET=your_ultra_secure_long_signature_cryptographic_key_phrase
+
 REDIS_URL=redis://default:<password>@your-redis-endpoint-domain.cloud.redislabs.com:12345
+
 NODE_ENV=development
 ```
 
@@ -115,6 +120,7 @@ npm install
 3. Initialize the environment blueprint by defining a local variable sheet named .env.local to point towards your active server cluster endpoint:
 ```bash
 Code snippet
+
 VITE_BACKEND_API_URL=http://localhost:5000
 ```
 
