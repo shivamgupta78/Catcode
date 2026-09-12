@@ -113,10 +113,10 @@ const AdminPage = () => {
             <select className='border ml-2 text-blue-500' {...register('tags')}>
               <option value="array">Array</option>
               <option value="linked list">Linked List</option>
-              <option value="grpah">Graph</option>
+              <option value="graph">Graph</option>
               <option value="dynamic programming">DP</option>
               <option value="string">string</option>
-              <option value="two pointer">Two pointers</option>
+              <option value="Two pointers">Two pointers</option>
               <option value="greedy">Greedy</option>
               <option value="backtracking">Backtracking</option>
             </select>

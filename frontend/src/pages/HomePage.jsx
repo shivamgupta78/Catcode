@@ -19,7 +19,9 @@ function Homepage(){
         const fetchProblems = async ()=>{
             try{
                 const {data} = await axiosClient.get('/problem/getAllProblem');
+               if (Array.isArray(data)) {
                 setproblems(data);
+            }
             }catch(error){
                 console.error("Error fetching problems",error);
             }
