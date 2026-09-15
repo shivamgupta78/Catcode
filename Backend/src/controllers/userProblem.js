@@ -124,7 +124,7 @@ const getProblemById = async (req,res)=>{
 const problemFetchAll = async (req,res)=>{
     try{   
     const getProblem = await Problem.find({}).select('_id title difficulty tags');
-        if(getProblem.length==0){
+        if(!getProblem || getProblem.length==0){
             return res.status(404).json({message:"problem is missing"})
         }
             res.status(200).json(getProblem);
