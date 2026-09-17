@@ -71,7 +71,7 @@ const login = async (req,res)=>{
 const logout = async (req,res) => {
     try{
         const authHeader = req.headers.authorization;
-        const token = authHeader && authHeader.split('')[1];
+        const token = authHeader && authHeader.split(' ')[1];
         if(!token){
             throw new Error("No token found");
         }

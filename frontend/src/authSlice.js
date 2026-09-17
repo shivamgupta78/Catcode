@@ -55,10 +55,11 @@ export const logoutUser = createAsyncThunk(
     }
 );
 
-const savedUser = JSON.parse(localStorage.getItem("user")); //new
+const savedUser = JSON.parse(localStorage.getItem("user"));
+const savedToken = localStorage.getItem("token");
 const initialState ={
-    user:savedUser || null,
-    isAuthenticated: !!savedUser,
+    user:(savedUser && savedToken) ? savedUser : null,
+    isAuthenticated: !!(savedUser && savedToken),
     loading:false,
     error:null,
 }
